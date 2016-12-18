@@ -1,0 +1,114 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: give-paybox\n"
+"POT-Creation-Date: 2016-12-19 01:45-0300\n"
+"PO-Revision-Date: 2016-12-19 01:45-0300\n"
+"Last-Translator: Raphaël Droz <raphael.droz@gmail.com>\n"
+"Language-Team: Raphaël Droz <raphael.droz+floss@gmail.com>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: templates\n"
+
+#: give-integration.php:17 give-integration.php:18
+msgid "CB with Paybox"
+msgstr "CB avec Paybox"
+
+#: give-integration.php:47
+msgid "You will be directed to Paybox in order to process the secured payment"
+msgstr ""
+"Vous allez être redirigé vers Paybox afin de procéder à la finalisation du "
+"paiement sécurisé"
+
+#: give-paybox-admin.php:17
+msgid "Paybox Settings"
+msgstr "Réglages Paybox"
+
+#: give-paybox-admin.php:21
+msgid "Paybox site value"
+msgstr "Site paybox"
+
+#: give-paybox-admin.php:25
+msgid "Paybox rang value"
+msgstr "Rang paybox"
+
+#: give-paybox-admin.php:29
+msgid "Paybox ident value"
+msgstr "Site Paybox"
+
+#: give-paybox-admin.php:33
+msgid "Paybox hmac value"
+msgstr "Paybox HMAC"
+
+#: give-paybox-admin.php:37
+msgid "Should IPN endpoint check Paybox source IP?"
+msgstr "Vérification d'IP Paybox par l'IPN ?"
+
+#: give-paybox-admin.php:41 give-paybox-admin.php:51 give-paybox-admin.php:65
+msgid "Yes"
+msgstr "Oui"
+
+#: give-paybox-admin.php:42 give-paybox-admin.php:52 give-paybox-admin.php:66
+msgid "No"
+msgstr "Non"
+
+#: give-paybox-admin.php:47
+msgid "Test mode"
+msgstr "Mode de test"
+
+#: give-paybox-admin.php:57
+msgid "Minimum amount for 3D Secure"
+msgstr "Montant minimum pour la 3D Secure"
+
+#: give-paybox-admin.php:61
+msgid "Accept 3x payments"
+msgstr "Accepter les paiements en 3x"
+
+#: give-paybox-admin.php:71
+msgid "The minimum amount to activate the multiple payments"
+msgstr "Montant minimum permettant le paiement en 3x"
+
+#: give-paybox-admin.php:76
+msgid "Number of days between multiple payments"
+msgstr "Nombre de jour séparant les paiements multiples"
+
+#: give-paybox-admin.php:80
+msgid "Limit payment types"
+msgstr "Restriction sur le type de paiement"
+
+#: give-paybox-admin.php:87
+msgid "Restriction sur le type de carte"
+msgstr "Restriction sur le type de carte"
+
+#: give-paybox-admin.php:89
+msgid "Submit settings in order to select below card restrictions"
+msgstr ""
+"Validez tout d'abord la restriction sur le type de paiement avant de "
+"sélectionner une restriction sur le type de carte"
+
+#: give-paybox-admin.php:90
+msgid "/!\\ Not fully implemented yet!"
+msgstr "/!\\ Pas encore implémenté !"
+
+#: paybox-integration.php:60
+msgid "Your payment request through CB/Paybox is complete."
+msgstr ""
+
+#: templates/add-payment3x-option.tpl.php:1
+msgid "Pay by credit card in multiple times (3x)"
+msgstr "Autoriser le paiement en 3x"
+
+#: templates/payment-error.php:2
+msgid "There is an error with your order"
+msgstr "Un échec s'est produit sur cette transaction"
+
+#: templates/payment-processing.php:1
+msgid "Paybox payment is on its way"
+msgstr "Paiement paybox en cours"
