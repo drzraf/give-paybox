@@ -8,14 +8,31 @@
  * (at your option) any later version.
  */
 
-class Give_Paybox extends WP_Paybox_RedirectController implements PrePersistPayboxable {
+// needed for give_get_option()
+require_once(__DIR__ . '/../give/includes/admin/class-give-settings.php');
 
-  private $payment_id;
+class Give_Paybox_Channel extends WP_Paybox {
+  public static function opt($opt) {
+    return give_get_option($opt);
+  }
+
+  public static function isTestMode() {
+    return give_is_test_mode();
+  }
 
   function setReturnURLS(&$PBX_EFFECTUE, &$PBX_REFUSE, &$PBX_ANNULE) {
     $PBX_EFFECTUE = urlencode(home_url('paybox/success'));
     $PBX_REFUSE   = urlencode(home_url('paybox/error'));
     $PBX_ANNULE   = urlencode(home_url('paybox/cancel'));
+  }
+}
+
+class Give_Paybox extends WP_Paybox_RedirectController implements PrePersistPayboxable {
+
+  private $payment_id;
+
+  public function __construct($payment_id) {
+    $this->payment_id = $payment_id;
   }
 
   function getUniqId()   { return $this->payment_id; }
@@ -30,9 +47,7 @@ class Give_Paybox extends WP_Paybox_RedirectController implements PrePersistPayb
     $url_path = trim(parse_url(add_query_arg(array()), PHP_URL_PATH), '/');
     if ( $url_path === 'paybox/confirm') {
     }
-    if ( $url_path === 'paybox/redirect') {
-      // WP_Paybox_RedirectController
-    }
+    // if ( $url_path === 'paybox/redirect') {}
     if ( $url_path === 'paybox/confirm') {
     }
     if ( $url_path === 'paybox/error') {
@@ -42,7 +57,7 @@ class Give_Paybox extends WP_Paybox_RedirectController implements PrePersistPayb
   }
  
   // binding with give_filter_success_page_content
-  function onClientSuccess() {
+  function onClientSuccess($args = NULL) {
     ob_start();
     give_get_template_part( 'payment', 'processing.tpl' );
     $content = ob_get_clean();
@@ -58,6 +73,11 @@ class Give_Paybox extends WP_Paybox_RedirectController implements PrePersistPayb
 
 	function onClientConfirmation() {
     printf('<p>%s</p>', __('Your payment request through CB/Paybox is complete.', 'give-paybox'));
+  }
+
+  function set() {
+    // no-op
+    // see process_payment()
   }
 
   function handleIPN($logguer, $vars) {

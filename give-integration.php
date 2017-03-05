@@ -13,10 +13,11 @@ class Give_Paybox_Gateway {
   public $email;
 
   static function register_gateway( $gateways ) {
-    $gateways['stripe'] = array(
+    $gateways['paybox'] = array(
       'admin_label'    => esc_html__( 'CB with Paybox', 'give-paybox' ),
       'checkout_label' => esc_html__( 'CB with Paybox', 'give-paybox' ),
     );
+    return $gateways;
   }
 
   static function admin_payment_js( $payment_id = 0 ) {
@@ -38,16 +39,20 @@ class Give_Paybox_Gateway {
     return $transaction_id;
   }
 
-  static function form_infos($form_id) {
-    if (give_get_option('accept3x')) {
+  static function cc_form($form_id) {
+    if (give_is_setting_enabled(give_get_option('accept3x'))) {
       wp_register_script('paybox-3x-js', plugins_url( 'assets/js/payment3x-option.js', __FILE__ ));
       wp_enqueue_script('paybox-3x-js');
       load_template( __DIR__ . '/templates/add-payment3x-option.tpl.php');
     }
-    _e("You will be directed to Paybox in order to process the secured payment");
+  }
+
+  static function after_cc_form($form_id) {
+    _e("You will be directed to Paybox in order to process the secured payment", 'give-paybox');
   }
 
   static function validate_fields($data, $posted) {
+    return TRUE; // no custom/paybox-specific fields
     /*
       if (! isset( $data['gateway']) || $data['gateway'] !== 'paybox' ) return;
       if ( empty( $posted['user_email'] ) ) {
@@ -80,8 +85,16 @@ class Give_Paybox_Gateway {
 
     // Record the pending payment.
     $payment_id = give_insert_payment( $payment_data );
-    wp_redirect('paybox/redirect');
 
-    // dunno
+    if (! $payment_id) {
+      give_send_back_to_checkout( '?payment-mode=' . $purchase_data['post_data']['give-gateway'] );
+    }
+
+    $paybox_transaction = new Give_Paybox($payment_id); // extends WP_Paybox_RedirectController + Payboxable
+    $paybox_channel = new Give_Paybox_Channel(); // extends WP_Paybox
+
+    list($params, $hmac) = $paybox_channel->preparePayboxData($paybox_transaction);
+    $url = $paybox_channel::getPayboxURL();
+    $paybox_transaction::makeHMACForm($url, $params, $hmac);
   }
 }
