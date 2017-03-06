@@ -23,6 +23,8 @@ function give_paybox_add_settings( $settings ) {
     return $settings;
   }
 
+  $prefix = 'give_paybox_';
+
   $paybox_settings = [
     // Section X: Paybox
     [
@@ -34,27 +36,27 @@ function give_paybox_add_settings( $settings ) {
       'name' => esc_html__( 'Paybox Settings', 'give-paybox' ),
       'desc' => '<hr>'],
 
-    [ 'id'   => 'site',
+    [ 'id'   => $prefix . 'site',
       'name' => esc_html__('Paybox site value', 'give-paybox'),
       'type' => 'text',
       'default' => '1999888'],
 
-    [ 'id'   => 'rang',
+    [ 'id'   => $prefix . 'rang',
       'name' => esc_html__('Paybox rang value', 'give-paybox'),
       'type' => 'text',
       'default' => '43'],
 
-    [ 'id'   => 'ident',
+    [ 'id'   => $prefix . 'ident',
       'name' => esc_html__('Paybox ident value', 'give-paybox'),
       'type' => 'text',
       'default' => '107975626'],
 
-    [ 'id'   => 'hmac',
+    [ 'id'   => $prefix . 'hmac',
       'name' => esc_html__('Paybox hmac value', 'give-paybox'),
       'type' => 'text',
       'default' => str_repeat('0123456789ABCDEF',8)],
 
-    [ 'id'   => 'checkip',
+    [ 'id'   => $prefix . 'checkip',
       'name' => esc_html__("Should IPN endpoint check Paybox source IP?", 'give-paybox'),
       'type' => 'radio_inline',
       'row_classes' => 'give-subfield',
@@ -64,11 +66,11 @@ function give_paybox_add_settings( $settings ) {
       ),
       'default'     => 'no' ],
 
-    [ 'id'   => '3dmin',
+    [ 'id'   => $prefix . '3dmin',
       'name' => esc_html__('Minimum amount for 3D Secure', 'give-paybox'),
       'type' => 'number' ],
 
-    [ 'id'   => 'accept3x',
+    [ 'id'   => $prefix . 'accept3x',
       'name' => esc_html__('Accept 3x payments', 'give-paybox'),
       'type' => 'radio_inline',
       'row_classes' => 'give-subfield',
@@ -78,16 +80,16 @@ function give_paybox_add_settings( $settings ) {
       ),
       'default'     => 'no' ],
 
-    [ 'id'   => '3xmin',
+    [ 'id'   => $prefix . '3xmin',
       'name' => esc_html__('The minimum amount to activate the multiple payments', 'give-paybox'),
       'type' => 'number' ],
 
 
-    [ 'id'   => 'nbdays',
+    [ 'id'   => $prefix . 'nbdays',
       'name' => esc_html__('Number of days between multiple payments', 'give-paybox'),
       'type' => 'number' ],
 
-    [ 'id'   => 'limit_payment',
+    [ 'id'   => $prefix . 'limit_payment',
       'name' => esc_html__('Limit payment types', 'give-paybox'),
       'type' => 'select',
       'options' => WP_Paybox::TYPE_PAIEMENT_POSSIBLE, // TODO: No restriction
@@ -95,7 +97,7 @@ function give_paybox_add_settings( $settings ) {
 
     // TODO: if ($this->options['limit_payment'])
     /*
-    [ 'id'   => 'limit_card',
+    [ 'id'   => $prefix . 'limit_card',
       'name' => esc_html__('Restriction sur le type de carte', 'give-paybox'),
       'description' =>
       _e('Submit settings in order to select below card restrictions', 'give-paybox') .

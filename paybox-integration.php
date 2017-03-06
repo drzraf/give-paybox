@@ -13,7 +13,7 @@ require_once(__DIR__ . '/../give/includes/admin/class-give-settings.php');
 
 class Give_Paybox_Channel extends WP_Paybox {
   public static function opt($opt) {
-    return give_get_option($opt);
+    return give_get_option("give_paybox_" . $opt);
   }
 
   public static function isTestMode() {
