@@ -21,17 +21,23 @@ class Give_Paybox_Gateway {
   }
 
   static function admin_payment_js( $payment_id = 0 ) {
-    if ( give_get_payment_gateway($payment_id) !== 'paybox') {
-      return;
-    }
+    if (! give_is_gateway_active( 'paybox' )) return;
+    if ( give_get_payment_gateway($payment_id) !== 'paybox') return;
     echo __METHOD__;
   }
 
+  // according to includes/payments/class-give-payment.php line 1558
+  // this should not even be needed if Paybox transaction ID is stored
+  // in a meta named "_give_payment_transaction_id"
   static function get_payment_transaction_id( $payment_id ) {
-    $notes          = give_get_payment_notes( $payment_id );
+    return get_post_meta($payment_id, '_give_payment_transaction_id', true);
+
+    // so horrible! (see the Paypal plugin)
+    // but isn't Give's "meta" handling more horrible after all?
+    $notes = give_get_payment_notes( $payment_id );
     $transaction_id = '';
     foreach ( $notes as $note ) {
-      if ( preg_match( '/^Paybox ID: ([^\s]+)/', $note->comment_content, $match ) ) {
+      if ( preg_match( '/Paybox ID: ([^\s]+)/', $note->comment_content, $match ) ) {
         $transaction_id = $match[1];
         continue;
       }

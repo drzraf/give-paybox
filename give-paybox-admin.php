@@ -115,6 +115,9 @@ function give_paybox_add_settings( $settings ) {
 
 function give_paybox_link_transaction_id( $transaction_id, $payment_id ) {
 	$test = give_get_payment_meta( $payment_id, '_give_payment_mode' ) === 'test';
-	return sprintf('<a href="https://%s.paybox.com/%s" target="_blank">%s</a>',
-                 $test ? 'preprod-admin' : 'admin', $transaction_id);
+	return sprintf('<a href="https://%s.paybox.com/%s" target="_blank" title="%s">%s</a>',
+                 $test ? 'preprod-admin' : 'admin',
+                 $transaction_id,
+                 __('See in the Paybox UI'),
+                 $transaction_id);
 }
