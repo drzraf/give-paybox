@@ -43,7 +43,7 @@ class Give_Paybox extends WP_Paybox_RedirectController implements PrePersistPayb
 
   // see http://wordpress.stackexchange.com/a/182718
   // Use anything better in future WP release (Router plugin?)
-  function endpoints($page_template) {
+  static function endpoints($page_template) {
     $url_path = trim(parse_url(add_query_arg(array()), PHP_URL_PATH), '/');
     if ( $url_path === 'paybox/success') {
       // self::onClientSuccess();

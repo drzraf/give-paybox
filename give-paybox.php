@@ -42,9 +42,7 @@ add_action('give_checkout_error_checks',       ['Give_Paybox_Gateway', 'validate
 add_action('give_gateway_paybox',              ['Give_Paybox_Gateway', 'process_payment']);
 
 // This hook activate the (visible) Give/Paybox integration part (form tweaks + admin config')
-if(!PAYBOX_TEST_MODE || is_admin()) {
-  add_filter('give_payment_gateways',            ['Give_Paybox_Gateway', 'register_gateway']);
-}
+add_filter('give_payment_gateways',            ['Give_Paybox_Gateway', 'register_gateway']);
 
 if(is_admin()) {
   require __DIR__ . '/give-paybox-admin.php' ;

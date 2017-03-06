@@ -13,6 +13,11 @@ class Give_Paybox_Gateway {
   public $email;
 
   static function register_gateway( $gateways ) {
+    if(PAYBOX_TEST_MODE && ! current_user_can('administrator')) {
+      // if test-mode: only activate for admin'
+      return $gateways;
+    }
+
     $gateways['paybox'] = array(
       'admin_label'    => esc_html__( 'CB with Paybox', 'give-paybox' ),
       'checkout_label' => esc_html__( 'CB with Paybox', 'give-paybox' ),
