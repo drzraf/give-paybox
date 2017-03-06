@@ -54,7 +54,9 @@ class Give_Paybox_Gateway {
   }
 
   static function after_cc_form($form_id) {
-    _e("You will be directed to Paybox in order to process the secured payment", 'give-paybox');
+    if (give_get_chosen_gateway($form_id) === 'paybox') {
+      _e("You will be directed to Paybox in order to process the secured payment", 'give-paybox');
+    }
   }
 
   static function validate_fields($data, $posted) {

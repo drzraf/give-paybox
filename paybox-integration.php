@@ -43,37 +43,29 @@ class Give_Paybox extends WP_Paybox_RedirectController implements PrePersistPayb
 
   // see http://wordpress.stackexchange.com/a/182718
   // Use anything better in future WP release (Router plugin?)
-  function endpoints() {
+  function endpoints($page_template) {
     $url_path = trim(parse_url(add_query_arg(array()), PHP_URL_PATH), '/');
-    if ( $url_path === 'paybox/confirm') {
+    if ( $url_path === 'paybox/success') {
+      // self::onClientSuccess();
+      require_once(__DIR__ . '/templates/payment-success.php');
+      die;
+    }
+    if ( $url_path === 'paybox/error') {
+      require_once(__DIR__ . '/templates/payment-error.php');
+      die;
     }
     // if ( $url_path === 'paybox/redirect') {}
     if ( $url_path === 'paybox/confirm') {
+      printf('<p>%s</p>', __('Your payment request through CB/Paybox is complete.', 'give-paybox'));
+      die;
     }
-    if ( $url_path === 'paybox/error') {
-    }
-    if ( $url_path === 'paybox/cancel') {
-    }
+    if ( $url_path === 'paybox/cancel') {}
   }
  
   // binding with give_filter_success_page_content
-  function onClientSuccess($args = NULL) {
-    ob_start();
-    give_get_template_part( 'payment', 'processing.tpl' );
-    $content = ob_get_clean();
-    return $content;
-  }
-
-	function onClientError() {
-    ob_start();
-    give_get_template_part( 'payment', 'error.tpl' );
-    $content = ob_get_clean();
-    return $content;
-  }
-
-	function onClientConfirmation() {
-    printf('<p>%s</p>', __('Your payment request through CB/Paybox is complete.', 'give-paybox'));
-  }
+  function onClientSuccess($args = NULL) {  }
+	function onClientError() { }
+	function onClientConfirmation() { }
 
   function set() {
     // no-op

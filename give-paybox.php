@@ -22,8 +22,8 @@ require_once __DIR__ . '/../wp-paybox/controller-redirect.php';
 require_once __DIR__ . '/../wp-paybox/interface-payboxable.php';
 
 require_once __DIR__ . '/paybox-integration.php' ;
-add_action('init', ['Give_Paybox', 'endpoints']);
 
+add_action('init', ['Give_Paybox', 'endpoints']);
 
 // mutual integration
 add_action('paybox_handle_IPN', ['Give_Paybox', 'handleIPN'], 10, 3);
